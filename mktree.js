@@ -3,6 +3,7 @@ cnae = JSON.parse(dados_cnae);
 output_tree = ""
 child_map = {}
 cod_map = {}
+selected_nodes = []
 
 function load_array(arr, current_id, depth=0) {
     for ( element_index in arr ) {
@@ -44,6 +45,17 @@ function load_dict(dict, parent_id="", depth=0) {
 };
 
 
+
+function select_or_discard_node(node_id) {
+    if ( selected_nodes.includes(node_id)) {
+        selected_nodes.pop(node_id)
+    } else {
+        selected_nodes.push(node_id)
+    };
+};
+
+
+
 function map_child_node(current_node, arr_of_child_nodes) {
     if ( current_node in child_map ) {} else {
         child_map[current_node] = []
@@ -82,14 +94,16 @@ function make_root_node_with_child(indent, current_id, info) {
     output  = '<div style="margin-left:'+ indent + 'px;"'
     output += 'id="' + current_id + '">'
     output += '<input type="button" class="btn" onclick=toggle_hide_show_child("' + info+ '")>'
-    output += '<input type="checkbox">' + info + '</div>'
+    output += '<input type="checkbox" onclick=select_or_discard_node("' + current_id + '")>' + info + '</div>'
     return output
 };
 
 function make_root_node_without_child(indent, current_id, info) {
     output  = '<div style="margin-left:' + indent + 'px;"'
     output += 'id="' + current_id + '">'
-    output += '<input type="button" class="btn2"><input type="checkbox">' + info + '</div>'
+    output += '<input type="button" class="btn2">'
+    output += '<input type="checkbox" onclick=select_or_discard_node("' + current_id + '")>' + info + '</div>'
+    //output += '<input type="checkbox">' + info + '</div>'
     return output
 };
 
@@ -98,7 +112,8 @@ function make_tree_node_with_child(parent_id, indent, current_id, info) {
     output += "style='margin-left:" + indent + "px;'"
     output += 'id="'+ current_id + '">' 
     output += '<input type="button" class="btn" onclick="toggle_hide_show_child(' + "'" + info + "'" + ')">'
-    output += '<input type="checkbox">' + info + '</div>'
+    output += '<input type="checkbox" onclick=select_or_discard_node("' + current_id + '")>' + info + '</div>'   
+    // output += '<input type="checkbox">' + info + '</div>'
     return output
 };
 
@@ -106,7 +121,9 @@ function make_tree_node_without_child(parent_id, indent, current_id, info) {
     output  = "<div class='" +"filho_de_" + parent_id + "'"
     output += "style='margin-left:" + indent + "px;'"
     output += 'id="' + current_id + '">' 
-    output += '<input type="button" class="btn2"><input type="checkbox">' + info + '</div>'
+    output += '<input type="button" class="btn2">'
+    output += '<input type="checkbox" onclick=select_or_discard_node("' + current_id + '")>' + info + '</div>'    
+    //output += '<input type="checkbox">' + info + '</div>'
     return output
 };
 
