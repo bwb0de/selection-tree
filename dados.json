@@ -17,7 +17,13 @@
                 "filhos": [
                     {
                         "cod": "0-2-0",
-                        "info": "Petroquímica"
+                        "info": "Petroquímica",
+                        "filhos": [
+                            {
+                                "cod": "0-2-0-0",
+                                "info": "Refinarias"
+                            }
+                        ]
                     }
                 ]
             },
