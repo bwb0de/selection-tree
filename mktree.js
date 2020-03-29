@@ -1,6 +1,7 @@
 cnae = JSON.parse(dados_cnae);
 
 output_tree = ""
+child_map = {}
 
 function load_array(arr, current_id, depth=0) {
     for ( element_index in arr ) {
@@ -10,8 +11,6 @@ function load_array(arr, current_id, depth=0) {
 
 
 function load_dict(dict, parent_id="", depth=0) {
-    keys = Object.keys(dict);
-
     if ( parent_id != "" ) {
         parent_prefix = parent_id + '-'
     } else {
@@ -29,6 +28,7 @@ function load_dict(dict, parent_id="", depth=0) {
             output_tree += make_tree_node_with_child(parent_id, indent, current_id, dict.info)
         };
 
+        map_child_node(dict.info, dict.filhos)
         load_array(dict.filhos, current_id, next_depth);
 
     } else {
@@ -37,6 +37,23 @@ function load_dict(dict, parent_id="", depth=0) {
         } else {
             output_tree += make_tree_node_without_child(parent_id, indent, current_id, dict.info); 
         };
+    };
+};
+
+
+function map_child_node(current_node, arr_of_child_nodes) {
+    if ( current_node in child_map ) {
+
+    } else {
+        child_map[current_node] = []
+    }
+    
+    for ( index in arr_of_child_nodes ) {
+        if ( arr_of_child_nodes[index].filhos !== undefined ) {
+            child_map[current_node].push(arr_of_child_nodes[index].info)
+            map_child_node(current_node, arr_of_child_nodes[index].filhos);
+        }
+        child_map[current_node].push(arr_of_child_nodes[index].info)
     };
 };
 
