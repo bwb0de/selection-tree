@@ -1,0 +1,21 @@
+.btn {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.btn2 {
+    background-color: white;
+    border: none;
+    color: white;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 5px;
+  }
